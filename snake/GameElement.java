@@ -22,10 +22,4 @@ public abstract class GameElement {
 	 * @param g Graphics Java Graphics-Object
 	 */
 	public abstract void draw(Graphics g);
-	
-	/**
-	 * To Move the snake
-	 * @param direction String to where the snake is moving
-	 */
-	// public abstract void move(Direction direction);
 }
