@@ -8,7 +8,7 @@ public class Snake extends GameElement {
 	private int speed;
 	private int xEndposition;
 	private int yEndposition;
-	private String heading;
+	private char heading;
 	private boolean isAlive;
 	private Vector<SnakePart> body = new Vector<SnakePart>();
 	
@@ -23,7 +23,7 @@ public class Snake extends GameElement {
 	 * @param heading String to where snake is headed
 	 * @param alive boolean if snake is alive or not
 	 */
-	public Snake(int x, int y, int xEnd, int yEnd, int size, int speed, String heading, boolean alive, SnakePart head) {
+	public Snake(int x, int y, int xEnd, int yEnd, int size, int speed, char heading, boolean alive, SnakePart head) {
 		super(x, y);
 		this.size = size * super.FIELDSIZE;
 		this.speed = speed * super.FIELDSIZE;
@@ -44,8 +44,6 @@ public class Snake extends GameElement {
 	 */
 	public void draw(Graphics g) {
 		for (int i = this.body.indexOf(this.body.firstElement()); i < this.body.lastIndexOf(this.body.lastElement()); i++) {
-			System.out.println("X: " + this.body.get(i).getPosX());
-			System.out.println("Y: " + this.body.get(i).getPosY());
 			g.drawRect(this.body.get(i).getPosX(), this.body.get(i).getPosY(), super.FIELDSIZE, super.FIELDSIZE);
 		}
 		this.xEndposition = this.body.lastElement().getPosX() / super.FIELDSIZE;
@@ -56,23 +54,19 @@ public class Snake extends GameElement {
 	 * move the snake to the given direction
 	 * @param String direction the direction the snake is moving
 	 */
-	public void move(String direction) {
-		System.out.println(direction);
-		if (direction == "down" && this.heading != "up" ) {
+	public void move(char direction) {
+		if (direction == 's' && this.heading != 'w' ) {
 			this.body.add(new SnakePart(this.xEndposition, this.yEndposition + 1));
-			this.body.remove(this.body.firstElement());
-		} else if (direction == "right" && this.heading != "left" ) {
+		} else if (direction == 'd' && this.heading != 'a' ) {
 			this.body.add(new SnakePart(this.xEndposition + 1, this.yEndposition));
-			this.body.remove(this.body.firstElement());
-		} else if (direction == "left" && this.heading != "right") {
-			this.body.add(new SnakePart(this.xPosition - 1, this.yEndposition));
-			this.body.remove(this.body.firstElement());
-		} else if (direction == "up" && this.heading != "down") {
+		} else if (direction == 'a' && this.heading != 'd') {
+			this.body.add(new SnakePart(this.xEndposition - 1, this.yEndposition));
+		} else if (direction == 'w' && this.heading != 's') {
 			this.body.add(new SnakePart(this.xEndposition, this.yEndposition - 1));
-			this.body.remove(this.body.firstElement());
 		} else {
-			System.out.println("Should not be possible, Collision!");
+			
 		}
+		this.body.remove(this.body.firstElement());
 		this.heading = direction;
 	}
 	

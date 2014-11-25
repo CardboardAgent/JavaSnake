@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 public class Game extends KeyAdapter {
 	private Vector<GameElement> gameElements;
 	private GUI gui;
-	private String pressedKey = "right";
+	private char pressedKey = 'd';
 	
 	Game(Vector<GameElement> gameElements) {
 		this.gui = new GUI(this);
@@ -27,18 +27,23 @@ public class Game extends KeyAdapter {
 	}
 	
 	public void keyPressed(KeyEvent e) {
+		Snake snake = (Snake) this.gameElements.get(1);
 		  if(e.getKeyChar() == 'w') {
-			  this.pressedKey = "up";
+			  this.pressedKey = 'w';
 		  } else if(e.getKeyChar() == 'a') {
-			  this.pressedKey = "left";
+			  this.pressedKey = 'a';
 		  } else if (e.getKeyChar() == 's') {
-			  this.pressedKey = "down";
+			  this.pressedKey = 's';
 		  } else if (e.getKeyChar() == 'd') {
-			  this.pressedKey = "right";
+			  this.pressedKey = 'd';
 		  }
+		  
+		  snake.move(this.pressedKey);
+		  this.gui.repaint();
+		  
 	  }
 	  
-	  private String getPressedKey() {
+	  private char getPressedKey() {
 		  return this.pressedKey;
 	  }
 	
@@ -46,7 +51,7 @@ public class Game extends KeyAdapter {
 		Vector<GameElement> gameElements = new Vector();
 		
 		Diamond dia = new Diamond(8, 9, Zufallsgenerator.zufallszahl(1, 10));
-		Snake snake = new Snake(1, 1, 1, 1, 3, 50 , "right", true, new SnakePart(1,1));
+		Snake snake = new Snake(1, 1, 1, 1, 3, 50 , 'd', true, new SnakePart(1,1));
 		
 		gameElements.add(dia);
 		gameElements.add(snake);
